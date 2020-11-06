@@ -46,5 +46,5 @@ for conversation in conversation_id:
     for i in range(len(conversation) - 1):
         questions.append(id_to_line[conversation[i]])
         answers.append(id_to_line[conversation[i + 1]])
-print(questions[26])
-print(answers[26])
+# print(questions[26])
+# print(answers[26])
