@@ -19,9 +19,23 @@ for line in dat_lines:
     if len(newline) == 5:
         id_to_line[newline[0]] = newline[-1]
 
-## functions for iterating certain amount keys and values
+# setting up a list conversation
+conversation_id = []
+for conv in dat_convs:
+    newconv = conv.split(' +++$+++ ')[-1]
+    tempconv = newconv[1:-1].replace("'", "").replace(" ", "")
+    conversation_id.append(tempconv.split(','))
+conversation_id.remove(['']) # cleaning out empty rows
+print(conversation_id)
+
+'''
+backup information for the conversation id, 
+the first number represents the question, 
+the second for answer
+'''
+
+
+# functions for iterating certain amount keys and values
 def readDict(dictionary,N):
     out = dict(itertools.islice(dictionary.items(), N))    
     print("Dictionary limited by K is : " + str(out)) 
-
-readDict(id_to_line,5)
