@@ -19,7 +19,7 @@ for line in dat_lines:
     if len(newline) == 5:
         id_to_line[newline[0]] = newline[-1]
 
-# functions for iterating certain amount keys and values
+# function for iterating certain amount keys and values
 def readDict(dictionary,N):
     out = dict(itertools.islice(dictionary.items(), N))    
     print("Dictionary limited by K is : " + str(out)) 
@@ -46,5 +46,26 @@ for conversation in conversation_id:
     for i in range(len(conversation) - 1):
         questions.append(id_to_line[conversation[i]])
         answers.append(id_to_line[conversation[i + 1]])
-# print(questions[26])
-# print(answers[26])
+
+# function for cleaning the text
+def cleanText(text):
+    text = text.lower()
+    text = re.sub(r"he's", "he is", text)
+    text = re.sub(r"she's", "she is", text)
+    text = re.sub(r"it's", "it is", text)
+    text = re.sub(r"I'm", "I am", text)
+    text = re.sub(r"that's", "that is", text)
+    text = re.sub(r"what's", "what is", text)
+    text = re.sub(r"where's", "where is", text)
+    text = re.sub(r"can't", "can not", text)
+    text = re.sub(r"won't", "will not", text)
+    text = re.sub(r"isn't", "is not", text)
+    text = re.sub(r"aren't", "are not", text)
+    text = re.sub(r"\'ll", " will", text)
+    text = re.sub(r"\'ve", " have", text)
+    text = re.sub(r"\'re", " are", text)
+    text = re.sub(r"\'d", " would", text)
+    text = re.sub(r"-()\"#@;:<>{}+=-|.?]", "", text)
+    return text
+
+    
