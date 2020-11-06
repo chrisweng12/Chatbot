@@ -68,4 +68,15 @@ def cleanText(text):
     text = re.sub(r"-()\"#@;:<>{}+=-|.?]", "", text)
     return text
 
-    
+# cleaning up the question
+cleanQuestion = []
+for question in questions:
+    tempQuestion = cleanText(question)
+    cleanQuestion.append(tempQuestion)
+
+# cleaning up the answers
+cleanAnswer = []
+for answer in answers:
+    tempAnswer = cleanText(answer)
+    cleanAnswer.append(tempAnswer)
+
