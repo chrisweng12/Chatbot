@@ -97,4 +97,16 @@ for answer in cleanAnswer:
         else:
             wordCount[word] += 1
 
-print(wordCount)
+# mapping words with unique integer
+threshold = 20
+identDict = {}
+identNum = 0
+for word, count in wordCount.items():
+    if count >= threshold:
+        identDict[word] = identNum
+        identNum = identNum + 1
+
+# Extracting specifix keys from dictionary 
+def filter_key(dictionary, filterKey):
+    res = [dictionary[key] for key in filterKey] 
+    print("Filtered value list is : " +  str(res)) 
