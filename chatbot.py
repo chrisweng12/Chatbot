@@ -6,6 +6,7 @@ import tensorflow as tf
 import re
 import time
 import itertools
+
 ##### Data preprocessing #####
 
 # read in the data
@@ -80,3 +81,20 @@ for answer in answers:
     tempAnswer = cleanText(answer)
     cleanAnswer.append(tempAnswer)
 
+# counting word frequency
+wordCount = {}
+for question in cleanQuestion:
+    for word in question.split():
+        if word not in wordCount:
+            wordCount[word] = 1
+        else:
+            wordCount[word] += 1
+
+for answer in cleanAnswer:
+    for word in answer.split():
+        if word not in wordCount:
+            wordCount[word] = 1
+        else:
+            wordCount[word] += 1
+
+print(wordCount)
