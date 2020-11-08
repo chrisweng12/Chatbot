@@ -106,7 +106,19 @@ for word, count in wordCount.items():
         identDict[word] = identNum
         identNum = identNum + 1
 
+questionDic = identDict
+answerDic = identDict
+
 # Extracting specifix keys from dictionary 
 def filter_key(dictionary, filterKey):
     res = [dictionary[key] for key in filterKey] 
     print("Filtered value list is : " +  str(res)) 
+
+# Adding last tokens to dictionaries
+tokens = ['<PAD>', '<EOS>', '<OUT>', '<SOS>']
+for token in tokens:
+    questionDic[token] = len(questionDic) + 1
+    answerDic[token] = len(answerDic) + 1
+
+print(len(questionDic))
+print(len(answerDic))
