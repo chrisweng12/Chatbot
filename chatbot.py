@@ -120,5 +120,7 @@ for token in tokens:
     questionDic[token] = len(questionDic) + 1
     answerDic[token] = len(answerDic) + 1
 
-print(len(questionDic))
-print(len(answerDic))
+
+# Invers the answer dictionary
+answerDicInv = {w_i: w for w, w_i in answerDic.items()}
+print(answerDicInv)
