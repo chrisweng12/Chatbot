@@ -123,4 +123,9 @@ for token in tokens:
 
 # Invers the answer dictionary
 answerDicInv = {w_i: w for w, w_i in answerDic.items()}
-print(answerDicInv)
+
+# Adding end of string token to the end of sentence inside clean answer list
+endToken = ' <EOS>'
+for sentence in range(len(cleanAnswer)):
+    cleanAnswer[sentence] += endToken
+print(cleanAnswer)
