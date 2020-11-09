@@ -116,6 +116,14 @@ def filter_key(dictionary, filterKey):
 
 # Adding last tokens to dictionaries
 tokens = ['<PAD>', '<EOS>', '<OUT>', '<SOS>']
+
+'''
+<PAD>:  GPU (or CPU at worst) processes your training data in batches and all the sequences in your batch should have the same length
+<EOS>: end of string, Decoder (ending signal)
+<OUT>: filtered out token
+<SOS>: start of string, Decoder (initializing signal)
+'''
+
 for token in tokens:
     questionDic[token] = len(questionDic) + 1
     answerDic[token] = len(answerDic) + 1
@@ -128,4 +136,30 @@ answerDicInv = {w_i: w for w, w_i in answerDic.items()}
 endToken = ' <EOS>'
 for sentence in range(len(cleanAnswer)):
     cleanAnswer[sentence] += endToken
-print(cleanAnswer)
+
+# Translating clean questions to integers
+questionInt = []
+outOfString = '<OUT>'
+for question in cleanQuestion:
+    Int = []
+    for word in question.split():
+        if word not in questionDic:
+            Int.append(questionDic[outOfString])
+        else:
+            Int.append(questionDic[word])
+    questionInt.append(Int)
+
+answerInt = []
+for answer in cleanAnswer:
+    Int = []
+    for word in answer.split():
+        if word not in answerDic:
+            Int.append(answerDic[outOfString])
+        else:
+            Int.append(answerDic[word])
+    answerInt.append(Int)
+
+
+#print(True) if outOfString in answerInt else print(False)
+if '<OUT>' in answerInt:
+    print('Yes')
