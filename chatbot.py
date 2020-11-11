@@ -169,5 +169,13 @@ for num in range(1, 26):
             sortedQuestion.append(questionInt[i[0]])
             sortedAnswer.append(questionInt[i[0]])
 
-print(sortedQuestion[0:5])
-print(sortedAnswer[0:5])
+##### building sequence to sequence model #####
+
+# building functions for place holders
+def model_placeHolder:
+    inputs = tf.placeholder(tf.int32, [None, None], name = 'inputs')
+    targets = tf.placeholder(tf.int32, [None, None], name = 'targets')
+    learningRates = tf.placeholder(tf.int32, name = 'learningRates')
+    keepProb = tf.placeholder(tf.int32, name = 'keepProb')
+    return inputs, targets, learningRates, keepProb
+    
