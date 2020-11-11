@@ -160,6 +160,14 @@ for answer in cleanAnswer:
     answerInt.append(Int)
 
 
-#print(True) if outOfString in answerInt else print(False)
-if '<OUT>' in answerInt:
-    print('Yes')
+# Sorting questions and answers by length of questions
+sortedQuestion = []
+sortedAnswer = []
+for num in range(1, 26):
+    for i in enumerate(questionInt):
+        if len(i[1]) == num:
+            sortedQuestion.append(questionInt[i[0]])
+            sortedAnswer.append(questionInt[i[0]])
+
+print(sortedQuestion[0:5])
+print(sortedAnswer[0:5])
