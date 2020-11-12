@@ -136,8 +136,7 @@ for token in tokens:
 for token in tokens:
     answerDic[token] = len(answerDic) + 1
 
-print(list(questionDic.items())[:4])
-print(list(answerDic.items())[:4])
+
 # Invers the answer dictionary
 answerDicInv = {w_i: w for w, w_i in answerDic.items()}
 
@@ -145,7 +144,7 @@ answerDicInv = {w_i: w for w, w_i in answerDic.items()}
 for sentence in range(len(cleanAnswer)):
     cleanAnswer[sentence] += ' <EOS>'
 
-# Translating clean questions to integers
+# Translating clean questions to integers and replace filtered out words
 questionInt = []
 for question in cleanQuestion:
     Int = []
@@ -174,8 +173,9 @@ for num in range(1, 26):
     for i in enumerate(questionInt):
         if len(i[1]) == num:
             sortedQuestion.append(questionInt[i[0]])
-            sortedAnswer.append(questionInt[i[0]])
-
+            sortedAnswer.append(answerInt[i[0]])
+print(sortedQuestion[0])
+print(sortedAnswer[0])
 ##### building sequence to sequence model #####
 
 # building functions for place holders
@@ -186,4 +186,4 @@ def model_placeHolder():
     keepProb = tf.placeholder(tf.int32, name = 'keepProb')
     return inputs, targets, learningRates, keepProb
 
-#print(sortedAnswer[0:5])
+

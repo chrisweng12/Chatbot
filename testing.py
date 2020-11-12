@@ -104,8 +104,6 @@ for token in tokens:
 for token in tokens:
     answerswords2int[token] = len(answerswords2int) + 1
 
-print(list(questionswords2int.items())[:4])
-print(list(answerswords2int.items())[:4])
 
 # Creating the inverse dictionary of the answerswords2int dictionary
 answersints2word = {w_i: w for w, w_i in answerswords2int.items()}
@@ -125,6 +123,7 @@ for question in clean_questions:
         else:
             ints.append(questionswords2int[word])
     questions_into_int.append(ints)
+
 answers_into_int = []
 for answer in clean_answers:
     ints = []
@@ -144,4 +143,5 @@ for length in range(1, 25 + 1):
             sorted_clean_questions.append(questions_into_int[i[0]])
             sorted_clean_answers.append(answers_into_int[i[0]])
 
-#print(sorted_clean_answers[0:5])
+print(sorted_clean_questions[0])
+print(sorted_clean_answers[0])
