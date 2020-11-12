@@ -174,8 +174,8 @@ for num in range(1, 26):
         if len(i[1]) == num:
             sortedQuestion.append(questionInt[i[0]])
             sortedAnswer.append(answerInt[i[0]])
-print(sortedQuestion[0])
-print(sortedAnswer[0])
+
+
 ##### building sequence to sequence model #####
 
 # building functions for place holders
@@ -186,4 +186,9 @@ def model_placeHolder():
     keepProb = tf.placeholder(tf.int32, name = 'keepProb')
     return inputs, targets, learningRates, keepProb
 
-
+# target preprocessing function
+def preprocessing(target, wordInt, batchSize):
+    begin = tf.fill([batchSize, 1], wordInt['<SOS>'])
+    end = tf.strided_slice(target, [0,0], [batchSize - 1], [1,1])
+    preprocessedTarget = tf.concat([begin, end], 1)
+    return preprocessedTarget
