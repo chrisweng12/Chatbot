@@ -89,7 +89,6 @@ for word, count in word2count.items():
         questionswords2int[word] = word_number
         word_number += 1
 
-print(list(questionwords2int.items()[:4]))
 threshold_answers = 20
 answerswords2int = {}
 word_number = 0
@@ -104,6 +103,9 @@ for token in tokens:
     questionswords2int[token] = len(questionswords2int) + 1
 for token in tokens:
     answerswords2int[token] = len(answerswords2int) + 1
+
+print(list(questionswords2int.items())[:4])
+print(list(answerswords2int.items())[:4])
 
 # Creating the inverse dictionary of the answerswords2int dictionary
 answersints2word = {w_i: w for w, w_i in answerswords2int.items()}

@@ -104,8 +104,8 @@ for word, count in wordCount.items():
     if count >= threshold_question:
         questionDic[word] = wordNum
         wordNum = wordNum + 1
-#print(list(questionDic.items()[:4]))
-print(questionDic[0])
+
+
 threshold_answer = 20
 answerDic = {}
 wordNum = 0
@@ -136,7 +136,8 @@ for token in tokens:
 for token in tokens:
     answerDic[token] = len(answerDic) + 1
 
-
+print(list(questionDic.items())[:4])
+print(list(answerDic.items())[:4])
 # Invers the answer dictionary
 answerDicInv = {w_i: w for w, w_i in answerDic.items()}
 
