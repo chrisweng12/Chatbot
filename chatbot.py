@@ -120,6 +120,7 @@ def filter_key(dictionary, filterKey):
     res = [dictionary[key] for key in filterKey] 
     print("Filtered value list is : " +  str(res)) 
 
+filter_key(answeDic,)
 # Adding last tokens to dictionaries
 tokens = ['<PAD>', '<EOS>', '<OUT>', '<SOS>']
 
@@ -175,7 +176,6 @@ for num in range(1, 26):
             sortedQuestion.append(questionInt[i[0]])
             sortedAnswer.append(answerInt[i[0]])
 
-
 ##### building sequence to sequence model #####
 
 # building functions for place holders
@@ -192,3 +192,4 @@ def preprocessing(target, wordInt, batchSize):
     end = tf.strided_slice(target, [0,0], [batchSize - 1], [1,1])
     preprocessedTarget = tf.concat([begin, end], 1)
     return preprocessedTarget
+
