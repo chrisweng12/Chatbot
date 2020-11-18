@@ -193,3 +193,16 @@ def preprocessing(target, wordInt, batchSize):
     preprocessedTarget = tf.concat([begin, end], 1)
     return preprocessedTarget
 
+
+# Encoder Recurrent Neural Network Layer
+def encoderRNN_layer(rnnInputs, rnnSize, layers, keepProb, seqLength):
+    lstm = tf.contrib.rnn.BasicLSTMCell(rnnSize)
+    lstmDropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keppProb = keepProb)
+    encoderCell = tf.contrib.rnn.MultiRNNCell([lstmDropout] * layers)
+    _, encoderState = tf.nn.bidirectional_dynamic_rnn(cell_fw = encoderCell,
+                                                    cell_bw = encoderCell,
+                                                    sequence_length = seqLength,
+                                                    inputs = rnnInputs,
+                                                    dtype = tf.float32)
+    return encoderState
+    
