@@ -120,7 +120,7 @@ def filter_key(dictionary, filterKey):
     res = [dictionary[key] for key in filterKey] 
     print("Filtered value list is : " +  str(res)) 
 
-filter_key(answeDic,)
+
 # Adding last tokens to dictionaries
 tokens = ['<PAD>', '<EOS>', '<OUT>', '<SOS>']
 
@@ -199,10 +199,30 @@ def encoderRNN_layer(rnnInputs, rnnSize, layers, keepProb, seqLength):
     lstm = tf.contrib.rnn.BasicLSTMCell(rnnSize)
     lstmDropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keppProb = keepProb)
     encoderCell = tf.contrib.rnn.MultiRNNCell([lstmDropout] * layers)
-    _, encoderState = tf.nn.bidirectional_dynamic_rnn(cell_fw = encoderCell,
+    encoderOutput, encoderState = tf.nn.bidirectional_dynamic_rnn(cell_fw = encoderCell,
                                                     cell_bw = encoderCell,
                                                     sequence_length = seqLength,
                                                     inputs = rnnInputs,
                                                     dtype = tf.float32)
     return encoderState
+
+
+# Decoder for the training set
+def decode_trainingSet(encoderState, decoderCell, decoder_embedded_input, sequence_length, decodingScope, outputFunction, keepProb, batchSize):
+    attention_states = tf.zeros([bachSize, 1, decoderCell.output_size])
+    attention_keys, attention_values, attention_score_function, attention_construct_function = tf.contrib.seq2seq.prepare_attention(attention_states, attention_option = "bahdanau", num_units = decoderCell.output_size)
+    training_decoder_function = tf.contrib.seq2seq.attention_decoder_fn_train(encoderState[0],
+                                                                            attention_keys,
+                                                                            attention_values,
+                                                                            attention_score_function,
+                                                                            attention_construct_function,
+                                                                            name = "attn_dec_train")
+    decoder_output, decoder_final_state, decoder_final_context_state = tf.contrib.seq2seq.dynamic_rnn_decoder(decoderCell,
+                                                                                                            training_decoder_function,
+                                                                                                            decoder_embedded_input,
+                                                                                                            sequence_length,
+                                                                                                            scope = decodingScope)
+    decoder_output_dropout = tf.nn.dropout(decoder_output, keepProb)
+    return output_function(decoder_output_dropout)
+
     
