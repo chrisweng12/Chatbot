@@ -225,4 +225,24 @@ def decode_trainingSet(encoderState, decoderCell, decoder_embedded_input, sequen
     decoder_output_dropout = tf.nn.dropout(decoder_output, keepProb)
     return output_function(decoder_output_dropout)
 
-    
+# Decoder for the testing set
+def decode_testingSet(encoderState, decoderCell, decoder_embedded_matrix, sos_id, eos_id, maxLength, num_words, sequence_length, decodingScope, outputFunction, keepProb, batchSize):
+    attention_states = tf.zeros([bachSize, 1, decoderCell.output_size])
+    attention_keys, attention_values, attention_score_function, attention_construct_function = tf.contrib.seq2seq.prepare_attention(attention_states, attention_option = "bahdanau", num_units = decoderCell.output_size)
+    testing_decoder_function = tf.contrib.seq2seq.attention_decoder_fn_inference(outputFunction,
+                                                                            encoderState[0],
+                                                                            attention_keys,
+                                                                            attention_values,
+                                                                            attention_score_function,
+                                                                            attention_construct_function,
+                                                                            decoder_embedded_matrix,
+                                                                            sos_id,
+                                                                            eos_id,
+                                                                            maxLength,
+                                                                            num_words,
+                                                                            name = "attn_dec_inf")
+    testPedictions, decoder_final_state, decoder_final_context_state = tf.contrib.seq2seq.dynamic_rnn_decoder(decoderCell,
+                                                                                                            testing_decoder_function,
+                                                                                                            scope = decodingScope)
+    return testPredictions
+
