@@ -19,13 +19,13 @@ A Chatbot made based on sequence to sequence model
   source activate chatbot
   ```
 
-* Once the virtual environment is activated, you. are good to go
+* Once the virtual environment is activated, you are good to go
 
   
 
 ### Packages needed to be installed
 
-* The package that need to be installed is 'tensorflow', 'numpy', 're', 'time', 'itertools'
+* Package that needs to be installed here is 'tensorflow'
 
   ```
   pip install tensorflow==1.0.0
