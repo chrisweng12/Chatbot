@@ -10,8 +10,8 @@ import itertools
 ##### Data preprocessing #####
 
 # read in the data
-dat_lines = open('movie_lines.txt', encoding = 'utf-8', errors = 'ignore').read().split('\n')
-dat_convs = open('movie_conversations.txt', encoding = 'utf-8', errors = 'ignore').read().split('\n')
+dat_lines = open('./data/movie_lines.txt', encoding = 'utf-8', errors = 'ignore').read().split('\n')
+dat_convs = open('./data/movie_conversations.txt', encoding = 'utf-8', errors = 'ignore').read().split('\n')
 
 # set up the dictionay
 id_to_line = {}
