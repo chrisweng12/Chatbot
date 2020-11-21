@@ -310,6 +310,7 @@ def seq2seq_model(inputs, targets, keepProb, batchSize, seqLength, answers_num_w
                                                         )
     return training_predictions, testing_predictions 
 
+##### Training the sequence to sequence model #####
 
 
 
