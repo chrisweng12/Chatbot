@@ -25,7 +25,7 @@ A Chatbot made based on sequence to sequence model
 
 ### Packages needed to be installed
 
-* Package that needs to be installed here is 'tensorflow'
+* Package that needs to be installed here is 'tensorflow', specifically under the version of 1.0.0
 
   ```
   pip install tensorflow==1.0.0
