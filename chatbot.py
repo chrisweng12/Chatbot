@@ -195,7 +195,7 @@ def preprocessing(target, wordInt, batchSize):
 
 
 # Encoder Recurrent Neural Network Layer
-def encoderRNN_layer(rnnInputs, rnnSize, layers, keepProb, seqLength):
+def encoderRNN(rnnInputs, rnnSize, layers, keepProb, seqLength):
     lstm = tf.contrib.rnn.BasicLSTMCell(rnnSize)
     lstmDropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keppProb = keepProb)
     encoderCell = tf.contrib.rnn.MultiRNNCell([lstmDropout] * layers)
@@ -245,4 +245,47 @@ def decode_testingSet(encoderState, decoderCell, decoder_embedded_matrix, sos_id
                                                                                                             testing_decoder_function,
                                                                                                             scope = decodingScope)
     return testPredictions
+
+# Decoder Reccurent Neural Network
+def decoderRNN(decoder_embedded_input, decoder_embedded_matrix, encoderState, num_words, seqLength, rnnSize, numLayers, wordInt, keepProb, batchSize):
+    with tf.variable_scope("decoding") as decoding_scope:
+        lstm = tf.contrib.rnn.BasixLSTM(rnnSize)
+        lstm_dropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keep_prob = keep_prob)
+        decoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * numLayers)
+        weights = tf.truncated_normal_initializer(stddev = 0.1)
+        biases = tf.zeros_initializer()
+        output_function = lambda x: tf.contrib.layers.fully_connected(x,
+                                                                    num_words,
+                                                                    None,
+                                                                    scope = decodingScope,
+                                                                    weights_initializer = weights,
+                                                                    biases_initializer = biases
+                                                                    )
+        training_predictions = decode_trainingSet(encoderState,
+                                                decoderCell,
+                                                decoder_embedded_input,
+                                                seqLength,
+                                                decodingScope,
+                                                output_function,
+                                                keepProb,
+                                                batchSize)
+
+        decodingScope.reuse_variables()
+
+        testing_predictions = decode_testingSet(encoderState,
+                                                decoderCell,
+                                                decoder_embedded_matrix,
+                                                wordInt['<SOS'],
+                                                wordInt['<EOS>'],
+                                                seqLength - 1,
+                                                num_words,
+                                                decodingScope,
+                                                output_function,
+                                                keepProb,
+                                                batchSize)
+    
+    return training_predictions, testing_predictions
+
+
+
 
