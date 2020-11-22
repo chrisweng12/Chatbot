@@ -336,3 +336,18 @@ seqLength = tf.placeholder_with_default(25, None, name = 'seqLength')
 
 # Getting the input shape
 input_shape = tf.shape(inputs)
+
+# Getting training, testing prediction
+training_predictions, testing predictions = seq2seq_model(tf.reverse(inputs, [-1]),
+                                                        targets,
+                                                        keepProb,
+                                                        batchSize,
+                                                        seqLength,
+                                                        len(answerDic),
+                                                        len(questionDic),
+                                                        encoder_embedding_size,
+                                                        decoder_embedding_size,
+                                                        rnnSize,
+                                                        numLayers,
+                                                        questionDic)
+
