@@ -312,6 +312,18 @@ def seq2seq_model(inputs, targets, keepProb, batchSize, seqLength, answers_num_w
 
 ##### Training the sequence to sequence model #####
 
+# Setting up the hyperparameters
+epochs = 100
+batchSize = 128
+rnnSize = 512
+numLayers = 3
+encoder_embedding_size = 512
+decoder_embedding_size = 512
+learningRates = 0.01
+learningRates_decay = 0.9
+min_learningRates = 0.0001
+keepProb = 0.5
+
 
 
 
