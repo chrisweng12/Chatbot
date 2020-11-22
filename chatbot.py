@@ -314,7 +314,7 @@ def seq2seq_model(inputs, targets, keepProb, batchSize, seqLength, answers_num_w
 
 # Setting up the hyperparameters
 epochs = 100
-batchSize = 128
+batchSize = 64
 rnnSize = 512
 numLayers = 3
 encoder_embedding_size = 512
@@ -332,5 +332,7 @@ session = tf.InteractiveSession()
 inputs, targets, learningRates, keepProb = model_placeHolder()
 
 # Setting up the sequence length
-seqLength = tf.placeholder_with_defualt(25, None, name = 'seqLength')
+seqLength = tf.placeholder_with_default(25, None, name = 'seqLength')
 
+# Getting the input shape
+input_shape = tf.shape(inputs)
