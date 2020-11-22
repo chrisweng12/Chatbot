@@ -331,3 +331,6 @@ session = tf.InteractiveSession()
 # Load in model inputs
 inputs, targets, learningRates, keepProb = model_placeHolder()
 
+# Setting up the sequence length
+seqLength = tf.placeholder_with_defualt(25, None, name = 'seqLength')
+
