@@ -328,4 +328,6 @@ keepProb = 0.5
 tf.reset_default_graph()
 session = tf.InteractiveSession()
 
+# Load in model inputs
+inputs, targets, learningRates, keepProb = model_placeHolder()
 
