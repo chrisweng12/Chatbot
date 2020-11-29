@@ -361,4 +361,12 @@ with tf.name_scope('optimization'):
     clipped_gradients = [(tf.clip_by_value(grad_tensor, -5.0, 5.0 ), grad_variable) for grad_tensor, grad_variable in gradients if grad_tensor != None]
     optimizer_gradient_clipping = optimizer.apply_gradients(clipped_gradients)
 
+# Padding sequences with <PAD> token
+# Question: 'Who', 'are', 'you', <PAD>, <PAD>, <PAD>, <PAD>, <PAD>, <PAD> 
+# Answer: <SOS>, 'I', 'am', 'a', 'student', 'from', 'NCTU', '.', <EOS>, <PAD>
+# Matching question and answer with the same length 
+def apply_padding(batch_of_seq, word2int):
+    max_seqLength = max([len(seq) for seq in batch_of_seq])
+    return [seq + [word2int['<PAD>']] * (max_seqLength - len(seq)) for seq in batch_of_seq]
+
 
