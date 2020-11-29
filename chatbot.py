@@ -369,4 +369,13 @@ def apply_padding(batch_of_seq, word2int):
     max_seqLength = max([len(seq) for seq in batch_of_seq])
     return [seq + [word2int['<PAD>']] * (max_seqLength - len(seq)) for seq in batch_of_seq]
 
+# Splitting data to batches of questions and answers
+def split_to_batches(questions, answers, batchSize):
+    for batch_index in range(0, len(questions) // batch_size):
+        start_index = batch_index * batch_size
+        questions_in_batch = questions[start_index : start_index + batch_size]
+        answers_in_batch = answers[start_index : start_index + batch_size]
+        padded_questions_in_batch = np.array(apply_padding(questions_in_batch, questionDic))
+        padded_answers_in_batch = np.array(apply_padding(answers_in_batch, answerDic))
+        yield padded_questions_in_batch, padded_answers_in_batch
 
