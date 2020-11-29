@@ -351,4 +351,14 @@ training_predictions, testing_predictions = seq2seq_model(tf.reverse(inputs, [-1
                                                         numLayers,
                                                         questionDic)
 
+# Setting the loss error, optimizer, and gradient clipping
+with tf.name_scope('optimization'):
+    loss_error = tf.contrib.seq2seq.sequence_loss(training_predictions,
+                                                    targets,
+                                                    tf.ones([input_shape[0], seqLength]))
+    optimizer = tf.train.AdamOptimizer(learningRates)
+    gradients = optimizer.compute_gradients(loss_error)
+    clipped_gradients = [(tf.clip_by_value(grad_tensor, -5.0, 5.0 ), grad_variable) for grad_tensor, grad_variable in gradients if grad_tensor != None]
+    optimizer_gradient_clipping = optimizer.apply_gradients(clipped_gradients)
+
 
