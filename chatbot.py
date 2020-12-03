@@ -275,7 +275,7 @@ def decoderRNN(decoder_embedded_input, decoder_embedded_matrix, encoderState, nu
         testing_predictions = decode_testingSet(encoderState,
                                                 decoderCell,
                                                 decoder_embedded_matrix,
-                                                wordInt['<SOS'],
+                                                wordInt['<SOS>'],
                                                 wordInt['<EOS>'],
                                                 seqLength - 1,
                                                 num_words,
