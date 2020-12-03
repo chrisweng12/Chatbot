@@ -386,5 +386,13 @@ training_answers = sortedAnswer[training_validation_split: ]
 validated_questions = sortedQuestion[ :training_validation_split]
 validated_answers = sortedAnswer[ :training_validation_split]
 
-
+# Training
+batchIndex_check_trainingLoss = 100
+batchIndex_check_validationLoss = ((len(training_questions)) // batchSize // 2) - 1
+totalTraining_lossError = 0
+listValidation_lossError = []
+earlyStopping_check = 0
+earlyStopping_stop = 1000
+chechpoint = "chatbotWeights.ckpt"
+session.run(tf.global_variables_initializer())
 
