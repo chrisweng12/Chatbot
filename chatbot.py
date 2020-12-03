@@ -180,14 +180,14 @@ for num in range(1, 26):
 
 # building functions for place holders
 def model_placeHolder():
-    inputs = tf.placeholder(tf.int32, [None, None], name = 'inputs')
-    targets = tf.placeholder(tf.int32, [None, None], name = 'targets')
-    learningRates = tf.placeholder(tf.int32, name = 'learningRates')
-    keepProb = tf.placeholder(tf.int32, name = 'keepProb')
+    inputs = tf.placeholder(tf.int32, [None, None], name = 'input')
+    targets = tf.placeholder(tf.int32, [None, None], name = 'target')
+    learningRates = tf.placeholder(tf.int32, name = 'learning_rate')
+    keepProb = tf.placeholder(tf.int32, name = 'keep_prob')
     return inputs, targets, learningRates, keepProb
 
 # target preprocessing function
-def preprocessing(target, wordInt, batchSize):
+def preprocessing_targets(target, word2Int, batchSize):
     begin = tf.fill([batchSize, 1], wordInt['<SOS>'])
     end = tf.strided_slice(target, [0,0], [batchSize - 1], [1,1])
     preprocessedTarget = tf.concat([begin, end], 1)
@@ -310,6 +310,7 @@ def seq2seq_model(inputs, targets, keepProb, batchSize, seqLength, answers_num_w
                                                         )
     return training_predictions, testing_predictions 
 
+'''
 ##### Training the sequence to sequence model #####
 
 # Setting up the hyperparameters
@@ -386,7 +387,7 @@ training_answers = sortedAnswer[training_validation_split: ]
 validated_questions = sortedQuestion[ :training_validation_split]
 validated_answers = sortedAnswer[ :training_validation_split]
 
-'''
+
 # Training
 batchIndex_check_trainingLoss = 100
 batchIndex_check_validationLoss = ((len(training_questions)) // batchSize // 2) - 1
