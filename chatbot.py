@@ -251,7 +251,7 @@ def decoderRNN(decoder_embedded_input, decoder_embedded_matrix, encoderState, nu
     with tf.variable_scope("decoding") as decodingScope:
         lstm = tf.contrib.rnn.BasicLSTMCell(rnnSize)
         lstm_dropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keep_prob = keepProb)
-        decoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * numLayers)
+        decoderCell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * numLayers)
         weights = tf.truncated_normal_initializer(stddev = 0.1)
         biases = tf.zeros_initializer()
         output_function = lambda x: tf.contrib.layers.fully_connected(x,
@@ -262,7 +262,7 @@ def decoderRNN(decoder_embedded_input, decoder_embedded_matrix, encoderState, nu
                                                                     biases_initializer = biases
                                                                     )
         training_predictions = decode_trainingSet(encoderState,
-                                                decoder_cell,
+                                                decoderCell,
                                                 decoder_embedded_input,
                                                 seqLength,
                                                 decodingScope,
