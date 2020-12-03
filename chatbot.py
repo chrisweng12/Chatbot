@@ -182,14 +182,14 @@ for num in range(1, 26):
 def model_placeHolder():
     inputs = tf.placeholder(tf.int32, [None, None], name = 'input')
     targets = tf.placeholder(tf.int32, [None, None], name = 'target')
-    learningRates = tf.placeholder(tf.int32, name = 'learning_rate')
-    keepProb = tf.placeholder(tf.int32, name = 'keep_prob')
+    learningRates = tf.placeholder(tf.float32, name = 'learning_rate')
+    keepProb = tf.placeholder(tf.float32, name = 'keepProb')
     return inputs, targets, learningRates, keepProb
 
 # target preprocessing function
 def preprocessing_targets(targets, word2Int, batchSize):
     begin = tf.fill([batchSize, 1], word2Int['<SOS>'])
-    end = tf.strided_slice(targets, [0,0], [batchSize - 1], [1,1])
+    end = tf.strided_slice(targets, [0,0], [batchSize, - 1], [1,1])
     preprocessedTarget = tf.concat([begin, end], 1)
     return preprocessedTarget
 
@@ -248,8 +248,8 @@ def decode_testingSet(encoderState, decoderCell, decoder_embedded_matrix, sos_id
 
 # Decoder Reccurent Neural Network
 def decoderRNN(decoder_embedded_input, decoder_embedded_matrix, encoderState, num_words, seqLength, rnnSize, numLayers, wordInt, keepProb, batchSize):
-    with tf.variable_scope("decoding") as decoding_scope:
-        lstm = tf.contrib.rnn.BasixLSTM(rnnSize)
+    with tf.variable_scope("decoding") as decodingScope:
+        lstm = tf.contrib.rnn.BasicLSTMCell(rnnSize)
         lstm_dropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keep_prob = keepProb)
         decoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * numLayers)
         weights = tf.truncated_normal_initializer(stddev = 0.1)
@@ -265,12 +265,12 @@ def decoderRNN(decoder_embedded_input, decoder_embedded_matrix, encoderState, nu
                                                 decoder_cell,
                                                 decoder_embedded_input,
                                                 seqLength,
-                                                decoding_scope,
+                                                decodingScope,
                                                 output_function,
                                                 keepProb,
                                                 batchSize)
 
-        decoding_scope.reuse_variables()
+        decodingScope.reuse_variables()
 
         testing_predictions = decode_testingSet(encoderState,
                                                 decoderCell,
