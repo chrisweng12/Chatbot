@@ -418,6 +418,10 @@ for epoch in range(1, epochs + 1):
                                                                                                                                         totalTraining_lossError / batchIndex_check_trainingLoss,
                                                                                                                                         int(batch_time * batchIndex_check_trainingLoss)))
             totalTraining_lossError = 0
+        if batch_index % batchIndex_check_validationLoss == 0 & batch_index > 0:
+            totalValidaion_lossError = 0
+            starting_time = time.time()
+
         
 
 '''
