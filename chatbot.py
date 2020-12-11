@@ -405,8 +405,8 @@ for epoch in range(1, epochs + 1):
         _, batch_training_loss_error = session.run([optimizer_gradient_clipping, loss_error], {inputs: padded_questions_in_batch,
                                                                                                 targets: padded_answers_in_batch,
                                                                                                 lr: learning_rate,
-                                                                                                sequence_length: padded_answers_in_batch.shape[1],
-                                                                                                keepProb: keep_probability})
+                                                                                                seqLength: padded_answers_in_batch.shape[1],
+                                                                                                keepProb: keepProb})
         total_training_loss_eror += batch_training_loss_error
         ending_time = time.time()
         batch_time = ending_time - starting_time
@@ -421,29 +421,12 @@ for epoch in range(1, epochs + 1):
         if batch_index % batchIndex_check_validationLoss == 0 & batch_index > 0:
             totalValidaion_lossError = 0
             starting_time = time.time()
+            for batch_index_validation, (padded_questions_in_batch, padded_answers_in_batch) in enumerate()
 
         
 
 '''
 for epoch in range(1, epochs + 1):
-    for batch_index, (padded_questions_in_batch, padded_answers_in_batch) in enumerate(split_into_batches(training_questions, training_answers, batch_size)):
-        starting_time = time.time()
-        _, batch_training_loss_error = session.run([optimizer_gradient_clipping, loss_error], {inputs: padded_questions_in_batch,
-                                                                                            targets: padded_answers_in_batch,
-                                                                                            lr: learning_rate,
-                                                                                            sequence_length: padded_answers_in_batch.shape[1],
-                                                                                            keep_prob: keep_probability})
-        total_training_loss_error += batch_training_loss_error
-        ending_time = time.time()
-        batch_time = ending_time - starting_time
-        if batch_index % batch_index_check_training_loss == 0:
-            print('Epoch: {:>3}/{}, Batch: {:>4}/{}, Training Loss Error: {:>6.3f}, Training Time on 100 Batches: {:d} seconds'.format(epoch,
-                                                                                                                                    epochs,
-                                                                                                                                    batch_index,
-                                                                                                                                    len(training_questions) // batch_size,
-                                                                                                                                    total_training_loss_error / batch_index_check_training_loss,
-                                                                                                                                    int(batch_time * batch_index_check_training_loss)))
-            total_training_loss_error = 0
         if batch_index % batch_index_check_validation_loss == 0 and batch_index > 0:
             total_validation_loss_error = 0
             starting_time = time.time()
