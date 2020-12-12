@@ -432,7 +432,9 @@ for epoch in range(1, epochs + 1):
             batch_time = ending_time - starting_time
             averageValidation_lossError = totalValidaion_lossError / (len(validated_questions) / batchSize)
             print('Validation loss error: {:>6.3f}, Batch validation time: {:d} seconds'.format(averageValidation_lossError, int(batch_time)))
-            
+            learning_rate = learning_rate * learningRates_decay
+            if learning_rate < min_learningRates:
+                learning_rate = min_learningRates
 
         
 
