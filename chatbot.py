@@ -438,6 +438,7 @@ for epoch in range(1, epochs + 1):
             listValidation_lossError.append(averageValidation_lossError)
             if averageValidation_lossError <= min(listValidation_lossError):
                 print('Bot needs to be trained more.')
+                
 
         
 
