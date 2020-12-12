@@ -435,6 +435,9 @@ for epoch in range(1, epochs + 1):
             learning_rate = learning_rate * learningRates_decay
             if learning_rate < min_learningRates:
                 learning_rate = min_learningRates
+            listValidation_lossError.append(averageValidation_lossError)
+            if averageValidation_lossError <= min(listValidation_lossError):
+                print('Bot needs to be trained more.')
 
         
 
