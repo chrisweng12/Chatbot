@@ -421,7 +421,18 @@ for epoch in range(1, epochs + 1):
         if batch_index % batchIndex_check_validationLoss == 0 & batch_index > 0:
             totalValidaion_lossError = 0
             starting_time = time.time()
-            for batch_index_validation, (padded_questions_in_batch, padded_answers_in_batch) in enumerate()
+            for batch_index_validation, (padded_questions_in_batch, padded_answers_in_batch) in enumerate(split_to_batches(validated_questions, validated_answers, batchSize)):
+                batch_validation_loss_error = session.run(loss_error, {inputs: padded_questions_in_batch,
+                                                                    targets: padded_answers_in_batch,
+                                                                    lr: learning_rate,
+                                                                    seqLength: padded_answers_in_batch.shape[1],
+                                                                    keepProb: 1})
+                totalValidaion_lossError += batch_validation_loss_error
+            ending_time = time.time()
+            batch_time = ending_time - starting_time
+            averageValidation_lossError = totalValidaion_lossError / (len(validated_questions) / batchSize)
+            print('Validation loss error: {:>6.3f}, Batch validation time: {:d} seconds'.format(averageValidation_lossError, int(batch_time)))
+            
 
         
 
