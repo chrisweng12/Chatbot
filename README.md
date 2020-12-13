@@ -39,6 +39,8 @@ A Chatbot made based on sequence to sequence model
   ```
   
   * The training is time consuming, to run the model while your local machine is still available for other work, it is recommended to train this model using a virtual machine.
+  
+  * To run the model on a virtual machine, run the following step using AWS EC2. 
 
 
 
