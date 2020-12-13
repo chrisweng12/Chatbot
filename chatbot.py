@@ -407,7 +407,7 @@ for epoch in range(1, epochs + 1):
                                                                                                 lr: learning_rate,
                                                                                                 seqLength: padded_answers_in_batch.shape[1],
                                                                                                 keepProb: keep_probability})
-        totalTraining_loss_eror += batch_training_loss_error
+        totalTraining_lossError += batch_training_loss_error
         ending_time = time.time()
         batch_time = ending_time - starting_time
         if batch_index % batchIndex_check_trainingLoss == 0:
