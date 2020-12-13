@@ -31,7 +31,20 @@ A Chatbot made based on sequence to sequence model
   pip install tensorflow==1.0.0
   ```
 
+### Train the model
+* Run chatbot.py to train the model
+
+  ```
+  python chatbot.py
+  ```
   
+  * The training is time consuming, to run the model while your local machine is still available for other work, it is recommended to train this model using a virtual machine.
+  
+  * To run the model on a virtual machine, run the following step using AWS EC2. (Skip this process if you run the script in your local machine)
+  
+    * 
+  
+
 
 
 
