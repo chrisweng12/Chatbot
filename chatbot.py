@@ -404,7 +404,7 @@ for epoch in range(1, epochs + 1):
         starting_time = time.time()
         _, batch_training_loss_error = session.run([optimizer_gradient_clipping, loss_error], {inputs: padded_questions_in_batch,
                                                                                                 targets: padded_answers_in_batch,
-                                                                                                lr: learning_rate,
+                                                                                                learning_rate: learning_rate,
                                                                                                 seqLength: padded_answers_in_batch.shape[1],
                                                                                                 keepProb: keepProb})
         total_training_loss_eror += batch_training_loss_error
@@ -424,7 +424,7 @@ for epoch in range(1, epochs + 1):
             for batch_index_validation, (padded_questions_in_batch, padded_answers_in_batch) in enumerate(split_to_batches(validated_questions, validated_answers, batchSize)):
                 batch_validation_loss_error = session.run(loss_error, {inputs: padded_questions_in_batch,
                                                                     targets: padded_answers_in_batch,
-                                                                    lr: learning_rate,
+                                                                    learning_rate: learning_rate,
                                                                     seqLength: padded_answers_in_batch.shape[1],
                                                                     keepProb: 1})
                 totalValidaion_lossError += batch_validation_loss_error
@@ -439,7 +439,7 @@ for epoch in range(1, epochs + 1):
             if averageValidation_lossError <= min(listValidation_lossError):
                 print('Bot speaks better now.')
                 early_stop_checking = 0
-                save = tf.train.Saver()
+                saver = tf.train.Saver()
                 saver.save(session, checkpoint)
             else:
                 print('Bot needs more training')

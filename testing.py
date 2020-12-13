@@ -342,7 +342,7 @@ training_answers = sorted_clean_answers[training_validation_split:]
 validation_questions = sorted_clean_questions[:training_validation_split]
 validation_answers = sorted_clean_answers[:training_validation_split]
 
-'''
+
 # Training
 batch_index_check_training_loss = 100
 batch_index_check_validation_loss = ((len(training_questions)) // batch_size // 2) - 1
@@ -403,4 +403,3 @@ for epoch in range(1, epochs + 1):
         print("My apologies, I cannot speak better anymore. This is the best I can do.")
         break
 print("Game Over")
-'''
