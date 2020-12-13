@@ -323,14 +323,14 @@ decoder_embedding_size = 512
 learning_rate = 0.01
 learningRates_decay = 0.9
 min_learningRates = 0.0001
-keepProb = 0.5
+keep_probability = 0.5
 
 # Define the tensorflow session
 tf.reset_default_graph()
 session = tf.InteractiveSession()
 
 # Load in model inputs
-inputs, targets, learning_rate, keepProb = model_placeHolder()
+inputs, targets, lr, keepProb = model_placeHolder()
 
 # Setting up the sequence length
 seqLength = tf.placeholder_with_default(25, None, name = 'seqLength')
@@ -395,7 +395,7 @@ totalTraining_lossError = 0
 listValidation_lossError = []
 earlyStopping_check = 0
 earlyStopping_stop = 1000
-chechpoint = "chatbotWeights.ckpt"
+checkpoint = "chatbot_Weights.ckpt"
 session.run(tf.global_variables_initializer())
 
 
@@ -404,10 +404,10 @@ for epoch in range(1, epochs + 1):
         starting_time = time.time()
         _, batch_training_loss_error = session.run([optimizer_gradient_clipping, loss_error], {inputs: padded_questions_in_batch,
                                                                                                 targets: padded_answers_in_batch,
-                                                                                                learning_rate: learning_rate,
+                                                                                                lr: learning_rate,
                                                                                                 seqLength: padded_answers_in_batch.shape[1],
-                                                                                                keepProb: keepProb})
-        total_training_loss_eror += batch_training_loss_error
+                                                                                                keepProb: keep_probability})
+        totalTraining_loss_eror += batch_training_loss_error
         ending_time = time.time()
         batch_time = ending_time - starting_time
         if batch_index % batchIndex_check_trainingLoss == 0:
