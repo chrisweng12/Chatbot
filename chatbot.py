@@ -166,7 +166,6 @@ for answer in cleanAnswer:
             Int.append(answerDic[word])
     answerInt.append(Int)
 
-
 # Sorting questions and answers by length of questions
 sortedQuestion = []
 sortedAnswer = []
