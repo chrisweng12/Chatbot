@@ -461,4 +461,7 @@ session.run(tf.global_variables_initializer())
 saver = tf.train.Saver()
 saver.restore(session,checkpoint)
 
-
+# Converting questions from strings to lists ofencoding integers
+def convert_string_to_int(question, word2int):
+    question = cleanText(question)
+    return [word2int.get(word, word2int['<OUT>']) for word in question.split()]
