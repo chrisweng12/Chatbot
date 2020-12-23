@@ -454,3 +454,11 @@ print('Training is over')
 
 ##### Testig seq 2 seq model #####
 
+# Load the weights and run the session
+checkpoint = "./chatbot_weights.ckpt"
+session = tf.InteractiveSession()
+session.run(tf.global_variables_initializer())
+saver = tf.train.Saver()
+saver.restore(session,checkpoint)
+
+
