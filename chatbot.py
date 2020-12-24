@@ -386,7 +386,7 @@ training_answers = sortedAnswer[training_validation_split: ]
 validated_questions = sortedQuestion[ :training_validation_split]
 validated_answers = sortedAnswer[ :training_validation_split]
 
-'''
+
 # Training
 batchIndex_check_trainingLoss = 100
 batchIndex_check_validationLoss = ((len(training_questions)) // batchSize // 2) - 1
@@ -450,7 +450,7 @@ for epoch in range(1, epochs + 1):
         break
 print('Training is over')
 
-'''
+
 
 ##### Testig seq 2 seq model #####
 
