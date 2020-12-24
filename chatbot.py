@@ -465,3 +465,28 @@ saver.restore(session,checkpoint)
 def convert_string_to_int(question, word2int):
     question = cleanText(question)
     return [word2int.get(word, word2int['<OUT>']) for word in question.split()]
+
+# Setting up for the chatbot
+while(True):
+    question = input("User: ")
+    if question == 'Quit':
+        break
+    question = convert_string_to_int(question, questionDic)
+    question = question + [questionDic['<PAD>']] * (25 - len(question))
+    fake_batch = np.zeros((batchSize, 25))
+    fake_batch[0] = question
+    predicted_answer = session.run(testPredictions, {inputs: fake_batch, keepProb: 0.5})[0]
+    answer = ''
+    for i in np.argmax(predicted_answer, 1):
+        if answerDicInv[i] == 'i':
+            token = ' I'
+        elif answerDicInv[i] == '<EOS>':
+            token = '.'
+        elif answerDicInv[i] == '<OUT>':
+            token = 'out'
+        else:
+            token = ' ' + answerDicInv[i]
+        answer += token
+        if token == '.':
+            break
+    print('Ultron: ' + answer)
