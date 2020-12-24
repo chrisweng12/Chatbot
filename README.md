@@ -53,7 +53,7 @@ A Chatbot made based on sequence to sequence model
 
 *  The path to the ckeckpoint will be asked from the console
 
-  <img src="/Users/wengweicheng/googleLocal/Chatbot/data/Screen Shot 2020-12-24 at 6.00.14 PM.png" style="zoom:100%;" />
+  <img src="./data/Screen Shot 2020-12-24 at 6.00.14 PM.png" style="zoom:100%;" />
 
 
 
